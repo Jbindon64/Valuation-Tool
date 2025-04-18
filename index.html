@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Acuvizori - Insurance Agency Valuation Tool</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
+    h1, h2 { color: #004e7c; }
+    .container { max-width: 800px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    label, input, button { display: block; width: 100%; margin-bottom: 15px; }
+    input, button { padding: 10px; font-size: 16px; }
+    button { background: #004e7c; color: white; border: none; cursor: pointer; }
+    .result { font-weight: bold; margin-top: 20px; color: green; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Step 1: Agency Valuation Snapshot</h1>
+    <p>Enter your agency financials to receive an estimated value based on revenue and premiums.</p>
+    
+    <form id="valuationForm">
+      <label for="revenue">Allstate Earnings ($)</label>
+      <input type="number" id="revenue" placeholder="e.g., 325000">
+
+      <label for="brokered">Brokered Revenue ($)</label>
+      <input type="number" id="brokered" placeholder="e.g., 45000">
+
+      <label for="premium">Earned Premium ($)</label>
+      <input type="number" id="premium" placeholder="e.g., 1450000">
+
+      <button type="button" onclick="calculateValuation()">Estimate Valuation</button>
+    </form>
+
+    <div class="result" id="valuationResult"></div>
+  </div>
+
+  <script>
+    function calculateValuation() {
+      const revenue = parseFloat(document.getElementById("revenue").value) || 0;
+      const brokered = parseFloat(document.getElementById("brokered").value) || 0;
+      const premium = parseFloat(document.getElementById("premium").value) || 0;
+
+      const totalRevenue = revenue + brokered;
+      const baseMultiplier = 2.1;
+      const premiumMultiplier = 0.21;
+
+      const revenueVal = totalRevenue * baseMultiplier;
+      const premiumVal = premium * premiumMultiplier;
+
+      const averageVal = ((revenueVal + premiumVal) / 2).toFixed(0);
+
+      document.getElementById("valuationResult").textContent = "Estimated Valuation: $" + averageVal.toLocaleString();
+    }
+  </script>
+</body>
+</html>
